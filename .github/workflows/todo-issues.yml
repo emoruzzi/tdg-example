@@ -9,6 +9,7 @@ on:
 jobs:
   manage-issues:
     name: Manage TODO issues
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
