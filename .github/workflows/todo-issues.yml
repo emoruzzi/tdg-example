@@ -1,0 +1,32 @@
+
+name: Issue - TODOs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  manage-issues:
+    name: Manage TODO issues
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Scrape codebase for TODOs
+        id: scrape
+        uses: ribtoks/tdg-github-action@v0.4.10-beta
+        with:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+          REF: ${{ github.ref }}
+          LABEL: code/TODO
+          EXTENDED_LABELS: true
+          CLOSE_ON_SAME_BRANCH: true
+          COMMENT_ON_ISSUES: true
+          ASSIGN_FROM_BLAME: false
+          ADD_LIMIT: 100
+          CLOSE_LIMIT: 100
+          DRY_RUN: false
